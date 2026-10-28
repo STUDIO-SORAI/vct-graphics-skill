@@ -14,7 +14,13 @@ Team names and logos belong to their respective owners. SORAI ESPORTS / STUDIO S
 logos are the property of STUDIO SORAI and are not licensed under the MPL.
 
 No Riot Games, VCT, team, SORAI or third-party logos, fonts or photographs are included
-in this repository. You are responsible for obtaining any such assets lawfully and for
+in this repository. The only images included are the background files in assets/
+(bg_pac, bg_eu, bg_euam and their @2x versions): they are generated entirely by
+scripts/bg.py (fixed random seed; regenerating them reproduces the files exactly) and
+contain no Riot key art or other third-party artwork. They are licensed under the MPL-2.0
+like the code. The red cover background is derived from bg_pac at render time.
+
+You are responsible for obtaining any other such assets (marks, logos, fonts, photos) lawfully and for
 complying with their licences, Riot's Legal Jibber Jabber policy
 (https://www.riotgames.com/en/legal) and the terms of the fonts you use
 (Clash Display: Fontshare; Noto Sans CJK and JetBrains Mono: SIL OFL 1.1).
