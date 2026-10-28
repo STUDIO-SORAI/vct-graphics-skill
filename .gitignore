@@ -4,3 +4,10 @@ __pycache__/
 *.pyc
 assets/*
 !assets/README.md
+# procedurally generated backgrounds (scripts/bg.py) are MPL-licensed and ARE committed
+!assets/bg_pac.png
+!assets/bg_pac@2x.png
+!assets/bg_eu.png
+!assets/bg_eu@2x.png
+!assets/bg_euam.png
+!assets/bg_euam@2x.png
