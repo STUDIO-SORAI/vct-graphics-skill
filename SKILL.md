@@ -1,0 +1,39 @@
+---
+name: vct-graphics
+description: Generate on-brand 1080x1350 (@2x 2160x2700) social graphics for the VALORANT Champions Tour season - season map, partner teams, slot allocation, qualification path, LCQ, regional brackets, Kickoff slots and mega-thread covers - for the Pacific, EMEA and Americas regions. Use when the user asks for VCT / VALORANT esports infographics, format explainers or cover images, or wants to add a region or season to that template set. Requires the user's own logo, font and photo assets (see assets/README.md).
+---
+
+# VCT graphics
+
+Pillow-based generators for Traditional-Chinese VCT infographics. Output is a portrait PNG, 1080×1350 at 1x or 2160×2700 at @2x (`S=2`).
+
+## Before you start
+1. `pip install pillow numpy scipy`.
+2. Make sure the assets in `assets/README.md` are in place (fonts, VCT marks, team logos, photos). Backgrounds are generated automatically. If anything is missing, the scripts exit with a clear `ERROR: missing …` message — fix that, do not work around it.
+3. **Never commit** the assets (they are git-ignored) and never add third-party marks to the repo.
+
+## Workflow
+1. Confirm every fact (teams, slot counts, formats, dates) against official Riot announcements for the current season before drawing; do not invent or guess. Put the data into the region's blocks in `scripts/reg.py` (`CFG`, `PT()` teams, `overview` `_B`, `slots`, `path`, `lcq`, `br_*`).
+2. Render a 1x preview, look at it (overlaps, clipped text, wrong colours), fix, then render @2x for delivery.
+3. Name deliverables `NN-<region>-<mode>.png` (e.g. `03-pacific-kickoff-slots.png`).
+
+```bash
+REG=pac|emea|amer python3 scripts/reg.py <mode> <S> out/<name>.png
+REG=pac python3 scripts/kick_pac.py kslots <S> out/<name>.png   # Pacific Kickoff slot allocation
+python3 scripts/pac.py <overview|partners|slots|path|lcq> <S> out/<name>.png   # standalone Pacific
+python3 scripts/cover.py <cover1|cover2> <S> out/<name>.png
+scripts/render_all.sh                                          # everything, 1x + @2x → out/
+```
+Modes of `reg.py`: `overview`, `partners`, `slots`, `path`, `lcq`, and brackets `br_eu` `br_tr` `br_mena` (EMEA) / `br_na` `br_br` `br_latam` (Americas).
+
+## Conventions (keep them)
+- **Layered backgrounds**: soft colour-field background (`scripts/bg.py`: blobs + diagonal bands + blur + scanline + grain), dark tinted panels with a lime accent line on top; the cover reuses the Pacific background hue-rotated to red (`hue.py`).
+- **Region colours**: Pacific lime (198,244,50) on tint (6,18,30), LCQ (24,92,120)/(120,200,225); EMEA lime (205,245,40), tint (16,6,40), LCQ (88,52,170)/(176,150,255); Americas orange (255,122,26), tint (22,10,4), LCQ (128,50,12)/(255,166,96). Shared INK (22,22,22), white, muted (160,170,176), grey (222,226,228), cyan (0,190,214).
+- **Source credit**: 「來源：Riot Games」 on every graphic (the first cover has none).
+- **Wording** (Traditional Chinese): write 「Cup」, not 盃賽; 「雙敗淘汰」; 「最終資格賽」; avoid 「站」 and 「至少」.
+- **No dates on format graphics** (slots, path, LCQ, brackets). Dates appear only on the season-map overview.
+- **Minimal text**: headline + short rows/chips; no paragraphs on a graphic. Long explanations go in the post caption.
+- **Export @2x** for delivery, keep 1x for previews. Bracket trees are indicative, not official seeding.
+
+## Adding a region or season
+See README.md ("Adding a region", "Adding a season"). Brand/legal: see NOTICE — VALORANT and VCT are Riot Games trademarks; this project is unofficial.

@@ -1,0 +1,6 @@
+# Third-party / non-MPL assets are never committed: see assets/README.md
+out/
+__pycache__/
+*.pyc
+assets/*
+!assets/README.md
